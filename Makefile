@@ -3,18 +3,15 @@ CFLAGS = -Wall -g
 PFLAGS = -fPIC
 LDFLAGS = -shared -Wl,-soname,libclaves.so
 
-all :: app-cliente-1 app-cliente-2 app-cliente-3 servidor-sock libclaves.so
+all :: app-cliente-1 app-cliente-2 app-cliente-3 servidor-rpc libclaves.so
 
-servidor-sock: servidor-sock.o claves.o comm.o
+servidor-rpc: servidor-rpc.o claves.o claves-rpc_svc.o claves-rpc.o claves-rpc_xdr.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-proxy-sock.o: proxy-sock.c
-	$(CC) $(CFLAGS) $(PFLAGS) -c proxy-sock.c -o proxy-sock.o
+proxy-rpc.o: proxy-rpc.c
+	$(CC) $(CFLAGS) $(PFLAGS) -c proxy-rpc.c -o proxy-rpc.o
 
-comm.o: comm.c comm.h
-	$(CC) $(CFLAGS) $(PFLAGS) -c comm.c -o comm.o
-
-libclaves.so: proxy-sock.o comm.o
+libclaves.so: proxy-rpc.o claves-rpc.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
 app-cliente-1: app-cliente-1.o libclaves.so
@@ -30,4 +27,4 @@ app-cliente-3: app-cliente-3.o libclaves.so
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f app-cliente-1 app-cliente-2 app-cliente-3 servidor-sock libclaves.so *.o
+	rm -f app-cliente-1 app-cliente-2 app-cliente-3 servidor-rpc libclaves.so *.o

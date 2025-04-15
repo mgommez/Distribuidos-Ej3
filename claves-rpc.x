@@ -3,7 +3,7 @@ struct Coord {
     int y ;
 } ;
 
-struct set_value_respuesta {
+struct set_value_peticion {
     int key;
     string value1<256>;
     int N_value2;
