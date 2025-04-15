@@ -3,10 +3,10 @@
  * It was generated using rpcgen.
  */
 
-#include "claves-rpc.h"
+#include "claves_rpc.h"
 
 bool_t
-xdr_Coord (XDR *xdrs, Coord *objp)
+xdr_Coord_sensor (XDR *xdrs, Coord_sensor *objp)
 {
 	register int32_t *buf;
 
@@ -32,7 +32,7 @@ xdr_set_value_peticion (XDR *xdrs, set_value_peticion *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->V_value2, 32,
 		sizeof (double), (xdrproc_t) xdr_double))
 		 return FALSE;
-	 if (!xdr_Coord (xdrs, &objp->value3))
+	 if (!xdr_Coord_sensor (xdrs, &objp->value3))
 		 return FALSE;
 	return TRUE;
 }
@@ -52,7 +52,7 @@ xdr_get_value_respuesta (XDR *xdrs, get_value_respuesta *objp)
 	 if (!xdr_vector (xdrs, (char *)objp->V_value2, 32,
 		sizeof (double), (xdrproc_t) xdr_double))
 		 return FALSE;
-	 if (!xdr_Coord (xdrs, &objp->value3))
+	 if (!xdr_Coord_sensor (xdrs, &objp->value3))
 		 return FALSE;
 	return TRUE;
 }

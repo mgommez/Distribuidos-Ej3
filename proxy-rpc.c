@@ -5,13 +5,13 @@
 // Simula la API, pero en realidad envía mensajes al servidor mediante sockets.
 
 #include "claves.h"
-#include "message.h"
+//#include "message.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <strings.h>
-#include "claves-rpc.h"
+#include "claves_rpc.h"
 
 
 int assigned_host = 0;
@@ -71,7 +71,7 @@ int destroy(void){
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = destroy_1(&result, clnt);
+    retval = destroy_server_1(&result, clnt);
     if (retval != RPC_SUCCESS) {
         clnt_perror (clnt, "call failed");
         return -2;
@@ -132,7 +132,7 @@ int set_value (int key, char *value1, int N_value2, double *V_value2, struct Coo
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = set_value_1(p, &result, clnt);
+    retval = set_value_server_1(*p, &result, clnt);
     if (retval != RPC_SUCCESS) {
         free(p);
         clnt_perror (clnt, "call failed");
@@ -183,7 +183,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = get_value_1(key, &result, clnt);
+    retval = get_value_server_1(key, result, clnt);
     if (retval != RPC_SUCCESS) {
         free(result);
         clnt_perror (clnt, "call failed");
@@ -255,7 +255,7 @@ int modify_value(int key, char *value1, int N_value2, double *V_value2, struct C
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = modify_value_1(p, &result, clnt);
+    retval = modify_value_server_1(*p, &result, clnt);
     if (retval != RPC_SUCCESS) {
         free(p);
         clnt_perror (clnt, "call failed");
@@ -300,7 +300,7 @@ int delete_key(int key) {
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = delete_key_1(key, &result, clnt);
+    retval = delete_key_server_1(key, &result, clnt);
     if (retval != RPC_SUCCESS) {
         clnt_perror (clnt, "call failed");
         return -2;
@@ -341,7 +341,7 @@ int exist(int key) {
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = exist_1(key, &result, clnt);
+    retval = exist_server_1(key, &result, clnt);
     if (retval != RPC_SUCCESS) {
         clnt_perror (clnt, "call failed");
         return -2;

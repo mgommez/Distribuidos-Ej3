@@ -4,60 +4,60 @@
  */
 
 #include <memory.h> /* for memset */
-#include "claves-rpc.h"
+#include "claves_rpc.h"
 
 /* Default timeout can be changed using clnt_control() */
 static struct timeval TIMEOUT = { 25, 0 };
 
 enum clnt_stat 
-destroy_1(int *clnt_res, CLIENT *clnt)
+destroy_server_1(int *clnt_res, CLIENT *clnt)
 {
-	 return (clnt_call (clnt, destroy, (xdrproc_t) xdr_void, (caddr_t) NULL,
+	 return (clnt_call (clnt, destroy_server, (xdrproc_t) xdr_void, (caddr_t) NULL,
 		(xdrproc_t) xdr_int, (caddr_t) clnt_res,
 		TIMEOUT));
 
 }
 
 enum clnt_stat 
-set_value_1(set_value_peticion p, int *clnt_res,  CLIENT *clnt)
+set_value_server_1(set_value_peticion p, int *clnt_res,  CLIENT *clnt)
 {
-	return (clnt_call(clnt, set_value,
+	return (clnt_call(clnt, set_value_server,
 		(xdrproc_t) xdr_set_value_peticion, (caddr_t) &p,
 		(xdrproc_t) xdr_int, (caddr_t) clnt_res,
 		TIMEOUT));
 }
 
 enum clnt_stat 
-get_value_1(int key, struct get_value_respuesta *clnt_res,  CLIENT *clnt)
+get_value_server_1(int key, struct get_value_respuesta *clnt_res,  CLIENT *clnt)
 {
-	return (clnt_call(clnt, get_value,
+	return (clnt_call(clnt, get_value_server,
 		(xdrproc_t) xdr_int, (caddr_t) &key,
 		(xdrproc_t) xdr_get_value_respuesta, (caddr_t) clnt_res,
 		TIMEOUT));
 }
 
 enum clnt_stat 
-modify_value_1(set_value_peticion p, int *clnt_res,  CLIENT *clnt)
+modify_value_server_1(set_value_peticion p, int *clnt_res,  CLIENT *clnt)
 {
-	return (clnt_call(clnt, modify_value,
+	return (clnt_call(clnt, modify_value_server,
 		(xdrproc_t) xdr_set_value_peticion, (caddr_t) &p,
 		(xdrproc_t) xdr_int, (caddr_t) clnt_res,
 		TIMEOUT));
 }
 
 enum clnt_stat 
-delete_key_1(int key, int *clnt_res,  CLIENT *clnt)
+delete_key_server_1(int key, int *clnt_res,  CLIENT *clnt)
 {
-	return (clnt_call(clnt, delete_key,
+	return (clnt_call(clnt, delete_key_server,
 		(xdrproc_t) xdr_int, (caddr_t) &key,
 		(xdrproc_t) xdr_int, (caddr_t) clnt_res,
 		TIMEOUT));
 }
 
 enum clnt_stat 
-exist_1(int key, int *clnt_res,  CLIENT *clnt)
+exist_server_1(int key, int *clnt_res,  CLIENT *clnt)
 {
-	return (clnt_call(clnt, exist,
+	return (clnt_call(clnt, exist_server,
 		(xdrproc_t) xdr_int, (caddr_t) &key,
 		(xdrproc_t) xdr_int, (caddr_t) clnt_res,
 		TIMEOUT));

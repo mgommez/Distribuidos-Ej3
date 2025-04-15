@@ -1,18 +1,24 @@
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -I/usr/include/tirpc
 PFLAGS = -fPIC
 LDFLAGS = -shared -Wl,-soname,libclaves.so
 
 all :: app-cliente-1 app-cliente-2 app-cliente-3 servidor-rpc libclaves.so
 
-servidor-rpc: servidor-rpc.o claves.o claves-rpc_svc.o claves-rpc.o claves-rpc_xdr.o
-	$(CC) $(CFLAGS) $^ -o $@
+servidor-rpc: servidor-rpc.o claves.o claves_rpc_svc.o claves_rpc_xdr.o
+	$(CC) $(CFLAGS) $^ -ltirpc -o $@
 
 proxy-rpc.o: proxy-rpc.c
 	$(CC) $(CFLAGS) $(PFLAGS) -c proxy-rpc.c -o proxy-rpc.o
 
-libclaves.so: proxy-rpc.o claves-rpc.o
-	$(CC) $(LDFLAGS) $^ -o $@
+claves_rpc_clnt.o: claves_rpc_clnt.c
+	$(CC) $(CFLAGS) $(PFLAGS) -c $< -o $@
+
+claves_rpc_xdr.o: claves_rpc_xdr.c
+	$(CC) $(CFLAGS) $(PFLAGS) -c $< -o $@
+
+libclaves.so: proxy-rpc.o claves_rpc_clnt.o claves_rpc_xdr.o
+	$(CC) $(LDFLAGS) $^ -ltirpc -o $@
 
 app-cliente-1: app-cliente-1.o libclaves.so
 	$(CC) $(CFLAGS) $^ -lclaves -L. -o $@ -Wl,-rpath,.

@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "claves-rpc.h"
+#include "claves_rpc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <rpc/pmap_clnt.h>
@@ -17,58 +17,58 @@
 #endif
 
 int
-_destroy_1 (void  *argp, void *result, struct svc_req *rqstp)
+_destroy_server_1 (void  *argp, void *result, struct svc_req *rqstp)
 {
-	return (destroy_1_svc(result, rqstp));
+	return (destroy_server_1_svc(result, rqstp));
 }
 
 int
-_set_value_1 (set_value_peticion  *argp, void *result, struct svc_req *rqstp)
+_set_value_server_1 (set_value_peticion  *argp, void *result, struct svc_req *rqstp)
 {
-	return (set_value_1_svc(*argp, result, rqstp));
+	return (set_value_server_1_svc(*argp, result, rqstp));
 }
 
 int
-_get_value_1 (int  *argp, void *result, struct svc_req *rqstp)
+_get_value_server_1 (int  *argp, void *result, struct svc_req *rqstp)
 {
-	return (get_value_1_svc(*argp, result, rqstp));
+	return (get_value_server_1_svc(*argp, result, rqstp));
 }
 
 int
-_modify_value_1 (set_value_peticion  *argp, void *result, struct svc_req *rqstp)
+_modify_value_server_1 (set_value_peticion  *argp, void *result, struct svc_req *rqstp)
 {
-	return (modify_value_1_svc(*argp, result, rqstp));
+	return (modify_value_server_1_svc(*argp, result, rqstp));
 }
 
 int
-_delete_key_1 (int  *argp, void *result, struct svc_req *rqstp)
+_delete_key_server_1 (int  *argp, void *result, struct svc_req *rqstp)
 {
-	return (delete_key_1_svc(*argp, result, rqstp));
+	return (delete_key_server_1_svc(*argp, result, rqstp));
 }
 
 int
-_exist_1 (int  *argp, void *result, struct svc_req *rqstp)
+_exist_server_1 (int  *argp, void *result, struct svc_req *rqstp)
 {
-	return (exist_1_svc(*argp, result, rqstp));
+	return (exist_server_1_svc(*argp, result, rqstp));
 }
 
 static void
 claves_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		set_value_peticion set_value_1_arg;
-		int get_value_1_arg;
-		set_value_peticion modify_value_1_arg;
-		int delete_key_1_arg;
-		int exist_1_arg;
+		set_value_peticion set_value_server_1_arg;
+		int get_value_server_1_arg;
+		set_value_peticion modify_value_server_1_arg;
+		int delete_key_server_1_arg;
+		int exist_server_1_arg;
 	} argument;
 	union {
-		int destroy_1_res;
-		int set_value_1_res;
-		struct get_value_respuesta get_value_1_res;
-		int modify_value_1_res;
-		int delete_key_1_res;
-		int exist_1_res;
+		int destroy_server_1_res;
+		int set_value_server_1_res;
+		struct get_value_respuesta get_value_server_1_res;
+		int modify_value_server_1_res;
+		int delete_key_server_1_res;
+		int exist_server_1_res;
 	} result;
 	bool_t retval;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -79,40 +79,40 @@ claves_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case destroy:
+	case destroy_server:
 		_xdr_argument = (xdrproc_t) xdr_void;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_destroy_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_destroy_server_1;
 		break;
 
-	case set_value:
+	case set_value_server:
 		_xdr_argument = (xdrproc_t) xdr_set_value_peticion;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_set_value_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_set_value_server_1;
 		break;
 
-	case get_value:
+	case get_value_server:
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_get_value_respuesta;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_get_value_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_get_value_server_1;
 		break;
 
-	case modify_value:
+	case modify_value_server:
 		_xdr_argument = (xdrproc_t) xdr_set_value_peticion;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_modify_value_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_modify_value_server_1;
 		break;
 
-	case delete_key:
+	case delete_key_server:
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_delete_key_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_delete_key_server_1;
 		break;
 
-	case exist:
+	case exist_server:
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (bool_t (*) (char *, void *,  struct svc_req *))_exist_1;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))_exist_server_1;
 		break;
 
 	default:
