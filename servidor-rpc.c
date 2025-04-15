@@ -4,11 +4,11 @@
  * as a guideline for developing your own functions.
  */
 
-#include "claves-rpc.h"
+#include "claves_rpc.h"
 #include "claves.h"
 
 bool_t
-destroy_1_svc(int *result, struct svc_req *rqstp)
+destroy_server_1_svc(int *result, struct svc_req *rqstp)
 {
 	bool_t retval;
 
@@ -24,11 +24,11 @@ destroy_1_svc(int *result, struct svc_req *rqstp)
         retval = TRUE;
     }
 
-	return retval;
+    return retval;
 }
 
 bool_t
-set_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
+set_value_server_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
 {
 	bool_t retval;
 
@@ -36,7 +36,11 @@ set_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
 	 * insert server code here
 	 */
 
-    *result = set_value(p.key, p.value1, p.N_value2, p.V_value2, p.value3);
+    struct Coord *coord = (struct Coord*)malloc(sizeof(struct Coord));
+    coord->x = p.value3.x;
+    coord->y = p.value3.y;
+
+    *result = set_value(p.key, p.value1, p.N_value2, p.V_value2, *coord);
 
     if (*result < 0) {
         retval = FALSE;
@@ -44,31 +48,38 @@ set_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
         retval = TRUE;
     }
 
-	return retval;
+    free(coord);
+
+    return retval;
 }
 
 bool_t
-get_value_1_svc(int key, struct get_value_respuesta *result,  struct svc_req *rqstp)
+get_value_server_1_svc(int key, struct get_value_respuesta *result,  struct svc_req *rqstp)
 {
 	bool_t retval;
 
 	/*
 	 * insert server code here
 	 */
+    struct Coord *coord = (struct Coord*)malloc(sizeof(struct Coord));
 
-    result->status = get_value(key, result->value1, &(result->N_value2), result->V_value2, &(result->value3));
+    result->status = get_value(key, result->value1, &(result->N_value2), result->V_value2, coord);
 
     if (result->status < 0) {
         retval = FALSE;
     } else {
+        result->value3.x = coord->x;
+        result->value3.y = coord->y;
         retval = TRUE;
     }
 
-	return retval;
+    free(coord);
+
+    return retval;
 }
 
 bool_t
-modify_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
+modify_value_server_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
 {
 	bool_t retval;
 
@@ -76,7 +87,11 @@ modify_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
 	 * insert server code here
 	 */
 
-    *result = modify_value(p.key, p.value1, p.N_value2, p.V_value2, p.value3);
+    struct Coord *coord = (struct Coord*)malloc(sizeof(struct Coord));
+    coord->x = p.value3.x;
+    coord->y = p.value3.y;
+
+    *result = modify_value(p.key, p.value1, p.N_value2, p.V_value2, *coord);
 
     if (*result < 0) {
         retval = FALSE;
@@ -84,11 +99,13 @@ modify_value_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp)
         retval = TRUE;
     }
 
-	return retval;
+    free(coord);
+
+    return retval;
 }
 
 bool_t
-delete_key_1_svc(int key, int *result,  struct svc_req *rqstp)
+delete_key_server_1_svc(int key, int *result,  struct svc_req *rqstp)
 {
 	bool_t retval;
 
@@ -104,11 +121,11 @@ delete_key_1_svc(int key, int *result,  struct svc_req *rqstp)
         retval = TRUE;
     }
 
-	return retval;
+    return retval;
 }
 
 bool_t
-exist_1_svc(int key, int *result,  struct svc_req *rqstp)
+exist_server_1_svc(int key, int *result,  struct svc_req *rqstp)
 {
 	bool_t retval;
 
@@ -124,7 +141,7 @@ exist_1_svc(int key, int *result,  struct svc_req *rqstp)
         retval = TRUE;
     }
 
-	return retval;
+    return retval;
 }
 
 int
