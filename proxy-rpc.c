@@ -107,7 +107,8 @@ int set_value (int key, char *value1, int N_value2, double *V_value2, struct Coo
     strcpy(p->value1, value1);
     p->N_value2 = N_value2;
     memcpy(p->V_value2, V_value2, N_value2 * sizeof(double));
-    p->value3 = value3;
+    p->value3.x = value3.x;
+    p->value3.y = value3.y;
 
     CLIENT *clnt;
     enum clnt_stat retval;
@@ -203,7 +204,8 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
         strcpy(value1, result->value1);
         *N_value2 = result->N_value2;
         memcpy(V_value2, result->V_value2, *N_value2 * sizeof(double));
-        *value3 = result->value3;
+        value3->x = result->value3.x;
+        value3->y = result->value3.y;
     }
 
     int status = result->status;
@@ -230,7 +232,8 @@ int modify_value(int key, char *value1, int N_value2, double *V_value2, struct C
     strcpy(p->value1, value1);
     p->N_value2 = N_value2;
     memcpy(p->V_value2, V_value2, N_value2 * sizeof(double));
-    p->value3 = value3;
+    p->value3.x = value3.x;
+    p->value3.y = value3.y;
 
     CLIENT *clnt;
     enum clnt_stat retval;
