@@ -40,7 +40,7 @@ set_value_server_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp
     coord->x = p.value3.x;
     coord->y = p.value3.y;
 
-    *result = set_value(p.key, p.value1, p.N_value2, p.V_value2, *coord);
+    *result = set_value(p.key, *p.value1, p.N_value2, *p.V_value2, *coord);
 
     if (*result < 0) {
         retval = FALSE;
