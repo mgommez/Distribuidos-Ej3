@@ -1,4 +1,4 @@
-struct Coord_sensor {
+struct Coord_rpc {
     int x ;
     int y ;
 } ;
@@ -8,7 +8,7 @@ struct set_value_peticion {
     string value1<256>;
     int N_value2;
     double V_value2[32];
-    struct Coord_sensor value3;
+    struct Coord_rpc value3;
 } ;
 
 
@@ -17,7 +17,7 @@ struct get_value_respuesta {
     string value1<256>;
     int N_value2;
     double V_value2[32];
-    struct Coord_sensor value3;
+    struct Coord_rpc value3;
 } ;
 
 program CLAVES {

@@ -5,8 +5,11 @@ LDFLAGS = -shared -Wl,-soname,libclaves.so
 
 all :: app-cliente-1 app-cliente-2 app-cliente-3 servidor-rpc libclaves.so
 
-servidor-rpc.o: claves.o claves_rpc_svc.o claves_rpc_xdr.o
+servidor-rpc: servidor-rpc.o claves_rpc_svc.o claves_rpc_xdr.o claves.o
 	$(CC) $(CFLAGS) $^ -ltirpc -o $@
+
+servidor-rpc.o: servidor-rpc.c
+	$(CC) $(CFLAGS) $(PFLAGS) -c servidor-rpc.c -o servidor-rpc.o
 
 proxy-rpc.o: proxy-rpc.c
 	$(CC) $(CFLAGS) $(PFLAGS) -c proxy-rpc.c -o proxy-rpc.o
