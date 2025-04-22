@@ -8,7 +8,7 @@
 
 struct set_value_peticion {
     int key;
-    char *value1[256];
+    char value1[256];
     int N_value2;
     double V_value2[32];
     struct Coord value3;
