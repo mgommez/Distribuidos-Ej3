@@ -156,11 +156,7 @@ int set_value (int key, char *value1, int N_value2, double *V_value2, struct Coo
 
 int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coord *value3) {
     // Creación de la estructura de petición
-  	struct get_value_respuesta *result = (struct get_value_respuesta*)malloc(sizeof(struct get_value_respuesta));
-    if (NULL == result) {
-        perror("Error en malloc de respuesta - get_value proxy\n");
-        return -1;
-    }
+  	struct get_value_respuesta result;
 
     CLIENT *clnt;
     enum clnt_stat retval;
@@ -184,7 +180,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     }
 
     // 2. Invocar al procedimiento remoto
-    retval = get_value_server_1(key, result, clnt);
+    retval = get_value_server_1(key, &result, clnt);
     if (retval != RPC_SUCCESS) {
         free(result);
         clnt_perror (clnt, "call failed");
@@ -208,10 +204,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
         value3->y = result->value3.y;
     }
 
-    int status = result->status;
-    free(result);
-
-    return status;
+    return result.status;
 }
 
 int modify_value(int key, char *value1, int N_value2, double *V_value2, struct Coord value3) {
