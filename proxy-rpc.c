@@ -182,14 +182,17 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     retval = get_value_server_1(key, &result, clnt);
     if (retval != RPC_SUCCESS) {
         clnt_perror (clnt, "call failed");
+        return -2;
     }
 
     // 3. Destruir
     clnt_destroy (clnt);
 
-    if (result.status == -2) {
-        perror("Error de comunicación: retorno -2 a cliente\n");
-        return -2;
+    if (result.status != 0) {
+        if (result.status == -2) {
+            perror("Error de comunicación: retorno -2 a cliente\n");
+        }
+        return result.status;
     }
 
     // Guardar los valores recibidos en result en las direcciones de memoria pasadas como argumentos
