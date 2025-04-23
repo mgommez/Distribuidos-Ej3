@@ -18,11 +18,7 @@ destroy_server_1_svc(int *result, struct svc_req *rqstp)
 
     *result = destroy();
 
-    if (*result < 0) {
-        retval = FALSE;
-    } else {
-        retval = TRUE;
-    }
+    retval = TRUE;
 
     return retval;
 }
@@ -42,11 +38,7 @@ set_value_server_1_svc(set_value_peticion p, int *result,  struct svc_req *rqstp
 
     *result = set_value(p.key, p.value1, p.N_value2, p.V_value2, *coord);
 
-    if (*result < 0) {
-        retval = FALSE;
-    } else {
-        retval = TRUE;
-    }
+    retval = TRUE;
 
     free(coord);
 
@@ -64,15 +56,12 @@ get_value_server_1_svc(int key, struct get_value_respuesta *result,  struct svc_
     struct Coord *coord = (struct Coord*)malloc(sizeof(struct Coord));
 
     result->status = get_value(key, result->value1, &(result->N_value2), result->V_value2, coord);
-    printf("servidor - result = %d\n", result->status);
-    if (result->status < 0) {
-        retval = FALSE;
-    } else {
-        result->value3.x = coord->x;
-        result->value3.y = coord->y;
-        retval = TRUE;
-    }
-    printf("servidor - retval = %d (%s)\n", retval, clnt_sperrno(retval));
+
+    result->value3.x = coord->x;
+    result->value3.y = coord->y;
+
+    retval = TRUE;
+
     free(coord);
 
     return retval;
@@ -93,11 +82,7 @@ modify_value_server_1_svc(set_value_peticion p, int *result,  struct svc_req *rq
 
     *result = modify_value(p.key, p.value1, p.N_value2, p.V_value2, *coord);
 
-    if (*result < 0) {
-        retval = FALSE;
-    } else {
-        retval = TRUE;
-    }
+    retval = TRUE;
 
     free(coord);
 
@@ -115,11 +100,7 @@ delete_key_server_1_svc(int key, int *result,  struct svc_req *rqstp)
 
     *result = delete_key(key);
 
-    if (*result < 0) {
-        retval = FALSE;
-    } else {
-        retval = TRUE;
-    }
+    retval = TRUE;
 
     return retval;
 }
@@ -135,11 +116,7 @@ exist_server_1_svc(int key, int *result,  struct svc_req *rqstp)
 
     *result = exist(key);
 
-    if (*result < 0) {
-        retval = FALSE;
-    } else {
-        retval = TRUE;
-    }
+    retval = TRUE;
 
     return retval;
 }
