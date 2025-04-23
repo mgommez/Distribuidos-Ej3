@@ -174,7 +174,6 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     // 1. Localizar al servidor
     clnt = clnt_create (host, CLAVES, CLAVESVER, "udp");
     if (clnt == NULL) {
-        free(result);
         clnt_pcreateerror (host);
         return -2; // error de comunicación
     }
@@ -182,26 +181,24 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     // 2. Invocar al procedimiento remoto
     retval = get_value_server_1(key, &result, clnt);
     if (retval != RPC_SUCCESS) {
-        free(result);
         clnt_perror (clnt, "call failed");
     }
 
     // 3. Destruir
     clnt_destroy (clnt);
 
-    if (result->status == -2) {
-        free(result);
+    if (result.status == -2) {
         perror("Error de comunicación: retorno -2 a cliente\n");
         return -2;
     }
 
     // Guardar los valores recibidos en result en las direcciones de memoria pasadas como argumentos
-    if (result->status == 0) {
-        strcpy(value1, result->value1);
-        *N_value2 = result->N_value2;
-        memcpy(V_value2, result->V_value2, *N_value2 * sizeof(double));
-        value3->x = result->value3.x;
-        value3->y = result->value3.y;
+    if (result.status == 0) {
+        strcpy(value1, result.value1);
+        *N_value2 = result.N_value2;
+        memcpy(V_value2, result.V_value2, *N_value2 * sizeof(double));
+        value3->x = result.value3.x;
+        value3->y = result.value3.y;
     }
 
     return result.status;
