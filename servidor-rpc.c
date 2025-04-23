@@ -72,7 +72,7 @@ get_value_server_1_svc(int key, struct get_value_respuesta *result,  struct svc_
         result->value3.y = coord->y;
         retval = TRUE;
     }
-
+    printf("servidor - retval = %d (%s)\n", retval, clnt_sperrno(retval));
     free(coord);
 
     return retval;

@@ -180,6 +180,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
 
     // 2. Invocar al procedimiento remoto
     retval = get_value_server_1(key, &result, clnt);
+    printf("proxy - retval = %d (%s)\n", retval, clnt_sperrno(retval));
     if (retval != RPC_SUCCESS) {
         clnt_perror (clnt, "call failed");
         return -2;
