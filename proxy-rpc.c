@@ -190,14 +190,15 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     clnt_destroy (clnt);
 
     printf("servidor - result = %d\n", result.status);
-    if (result.status != 0) {
-        if (result.status == -1) {
-            printf("La clave %d no existe en el servidor.\n", key);
-        } else if (result.status == -2) {
-            perror("Error de comunicación: retorno -2 a cliente\n");
-        }
+    if (result.status == -1) {
+        printf("La clave %d no existe en el servidor.\n", key);
+        return result.status;
+    } else if (result.status == -2) {
+        perror("Error de comunicación: retorno -2 a cliente\n");
         return result.status;
     }
+
+
 
     // Guardar los valores recibidos en result en las direcciones de memoria pasadas como argumentos
     if (result.status == 0) {
