@@ -3,11 +3,9 @@ struct Coord_rpc {
     int y ;
 } ;
 
-typedef char fixed_string[256];
-
 struct set_value_peticion {
     int key;
-    fixed_string value1;
+    opaque value1[256];
     int N_value2;
     double V_value2[32];
     struct Coord_rpc value3;
@@ -15,7 +13,7 @@ struct set_value_peticion {
 
 struct get_value_respuesta {
     int status;
-    fixed_string value1;
+    opaque value1[256];
     int N_value2;
     double V_value2[32];
     struct Coord_rpc value3;
