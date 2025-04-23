@@ -189,6 +189,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
     // 3. Destruir
     clnt_destroy (clnt);
 
+    printf("servidor - result = %d\n", result.status);
     if (result.status != 0) {
         if (result.status == -1) {
             printf("La clave %d no existe en el servidor.\n", key);

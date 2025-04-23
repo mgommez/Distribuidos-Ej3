@@ -64,7 +64,7 @@ get_value_server_1_svc(int key, struct get_value_respuesta *result,  struct svc_
     struct Coord *coord = (struct Coord*)malloc(sizeof(struct Coord));
 
     result->status = get_value(key, result->value1, &(result->N_value2), result->V_value2, coord);
-
+    printf("servidor - result = %d\n", result->status);
     if (result->status < 0) {
         retval = FALSE;
     } else {
